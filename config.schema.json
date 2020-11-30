@@ -1,0 +1,25 @@
+{
+    "pluginAlias": "HeaterThermostat",
+    "pluginType": "accessory",
+    "headerDisplay": "Homebridge heater thermostat",
+    "singular": true,
+    "schema": {
+        "title": "Homebridge heater thermostat",
+        "type": "object",
+        "properties": {
+            "name": { "type": "string", "title": "Name", "required": true },
+
+            "relayPin": { "default": 21, "type": "integer", "title": "Relay GPIO Pin" },
+            "invert": { "default": false, "type": "boolean", "title": " Invert Relay Position" },
+            
+            "dhtSensorType": { "default": 22, "enum": [ 11, 22 ], "type": "integer", "title": "DHT Sensor Type" },
+            "temperatureSensorPin": { "default": 4, "type": "integer", "title": "Temperature Sensor GPIO Pin" },
+
+            "temperatureThreshold": { "default": 0, "type": "double", "title": "Temperature Threshold" },
+            "maxTemperature": { "default": 28, "type": "integer", "title": "Max Temperature" },
+            "minTemperature": { "default": 12, "type": "integer", "title": "Min Temperature" },
+            "minimumOnOffTime": { "default": 120000, "description": "in milliseconds","type": "integer", "title": "Minimum On-Off Time" }, 
+            "temperatureCheckInterval": { "default": 10000, "description": "in milliseconds", "type": "integer", "title": "Temperature Check Interval" }
+        }
+    }
+}
