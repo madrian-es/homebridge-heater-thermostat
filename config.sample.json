@@ -10,19 +10,21 @@
 
   "accessories": [
     {
-      "accessory": "Thermostat",
+      "accessory": "HeaterThermostat",
       "name": "Pi Thermostat",
-      "fanRelayPin": 26,
-      "heatRelayPin": 21,
-      "coolRelayPin": 20,
+
+      "relayPin": 21,
+      "dhtSensorType": 22,
       "temperatureSensorPin": 4,
-      "minimumOnOffTime": 120000,
-      "blowerTurnOffTime": 80000,
-      "startDelay": 10000,
+
+      "invert": false,
+      "temperatureThreshold": 0.5,
+      "maxTemperature": 28,
+      "minTemperature": 12,
+      "minimumOnOffTime": 120000, 
       "temperatureCheckInterval": 10000
     }
   ],
-
   "platforms": [
   ]
 }
