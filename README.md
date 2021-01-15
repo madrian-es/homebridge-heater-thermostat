@@ -2,8 +2,13 @@
 
 This is a [homebridge](https://github.com/nfarina/homebridge) plugin to make a Raspberry Pi connected with a Relay Board and DHT22 Temperature and Humidity Sensor into a smart thermostat that can be controlled via the Home app on iOS using Homekit. This plugin only supports Heaters.
 
-You can use homebridge config-x UI to configure this plugin.
+<a href="https://www.npmjs.com/package/homebridge-heater-thermostat">![](https://img.shields.io/npm/v/homebridge-heater-thermostat)</a>
 
+
+### Installation
+
+- You can use homebridge UI to install and configure this plugin.
+- To install manually: `npm i homebridge-heater-thermostat`
 
 ### Configuration:
 
