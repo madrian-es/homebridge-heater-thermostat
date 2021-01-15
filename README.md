@@ -4,7 +4,8 @@ This is a [homebridge](https://github.com/nfarina/homebridge) plugin to make a R
 
 You can use homebridge config-x UI to configure this plugin.
 
-The configuration:
+
+### Configuration:
 
 ```
 
@@ -25,3 +26,6 @@ The configuration:
     }
 ```
 
+### Screenshot
+
+<img src="IMG_0753.PNG" width="375" />
