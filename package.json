@@ -1,6 +1,6 @@
 {
   "name": "homebridge-heater-thermostat",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Hombridge plugin for thermostat with heater only",
   "main": "index.js",
   "engines": {

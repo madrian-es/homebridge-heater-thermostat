@@ -48,7 +48,7 @@ class Thermostat {
     this.targetHeatingCoolingState = Characteristic.TargetHeatingCoolingState.OFF;
 
     this.thermostatService = new Service.Thermostat(this.name);
-    
+
     this.readTemperatureFromSensor();
     setInterval(() => this.readTemperatureFromSensor(), this.temperatureCheckInterval);
   }
@@ -151,7 +151,7 @@ class Thermostat {
     dhtSensor.read(this.dhtSensorType, this.temperatureSensorPin, (err, temperature, humidity) => {
       if (!err) {
         this.currentTemperature = Math.round(temperature*10)/10;
-        this.log("CurrentTemperature: ", this.currentTemperature);
+        this.log.debug("CurrentTemperature: ", this.currentTemperature);
         this.currentRelativeHumidity = humidity;
         this.thermostatService.setCharacteristic(Characteristic.CurrentTemperature, this.currentTemperature);
         this.thermostatService.setCharacteristic(Characteristic.CurrentRelativeHumidity, this.currentRelativeHumidity);
@@ -173,11 +173,11 @@ class Thermostat {
     this.thermostatService
       .getCharacteristic(Characteristic.CurrentHeatingCoolingState)
       .on('get', callback => {
-        this.log('CurrentHeatingCoolingState:', this.currentHeatingCoolingState);
+        this.log.debug('CurrentHeatingCoolingState:', this.currentHeatingCoolingState);
         callback(null, this.currentHeatingCoolingState);
       })
       .on('set', (value, callback) => {
-        this.log('SET CurrentHeatingCoolingState from', this.currentHeatingCoolingState, 'to', value);
+        this.log.debug('SET CurrentHeatingCoolingState from', this.currentHeatingCoolingState, 'to', value);
         this.currentHeatingCoolingState = value;
         callback(null);
       });
@@ -189,11 +189,11 @@ class Thermostat {
         maxValue: Characteristic.TargetHeatingCoolingState.HEAT
       })
       .on('get', callback => {
-        this.log('TargetHeatingCoolingState:', this.targetHeatingCoolingState);
+        this.log.debug('TargetHeatingCoolingState:', this.targetHeatingCoolingState);
         callback(null, this.targetHeatingCoolingState);
       })
       .on('set', (value, callback) => {
-        this.log('SET TargetHeatingCoolingState from', this.targetHeatingCoolingState, 'to', value);
+        this.log.debug('SET TargetHeatingCoolingState from', this.targetHeatingCoolingState, 'to', value);
         this.targetHeatingCoolingState = value;
         this.updateSystem(true);
         callback(null);
@@ -206,20 +206,20 @@ class Thermostat {
         minStep: 0.1
       })
       .on('get', callback => {
-        this.log('CurrentTemperature:', this.currentTemperature);
+        this.log.debug('CurrentTemperature:', this.currentTemperature);
         callback(null, this.currentTemperature);
       })
       .on('set', (value, callback) => {
-        this.log('SET CurrentTemperature from', this.currentTemperature, 'to', value);
+        this.log.debug('SET CurrentTemperature from', this.currentTemperature, 'to', value);
         this.updateSystem();
         callback(null);
       });
-    
+
     // Current humidity
     this.thermostatService
       .getCharacteristic(Characteristic.CurrentRelativeHumidity)
       .on('get', callback => {
-        this.log('CurrentRelativeHumidity:', this.currentRelativeHumidity);
+        this.log.debug('CurrentRelativeHumidity:', this.currentRelativeHumidity);
         callback(null, this.currentRelativeHumidity);
       });
 
@@ -232,11 +232,11 @@ class Thermostat {
         minStep: 0.1
       })
       .on('get', callback => {
-        this.log('TargetTemperature:', this.targetTemperature);
+        this.log.debug('TargetTemperature:', this.targetTemperature);
         callback(null, this.targetTemperature);
       })
       .on('set', (value, callback) => {
-        this.log('SET TargetTemperature from', this.targetTemperature, 'to', value);
+        this.log.debug('SET TargetTemperature from', this.targetTemperature, 'to', value);
         this.targetTemperature = value;
         this.updateSystem(true);
         callback(null);
@@ -246,11 +246,11 @@ class Thermostat {
     this.thermostatService
       .getCharacteristic(Characteristic.TemperatureDisplayUnits)
       .on('get', callback => {
-        this.log('TemperatureDisplayUnits:', this.temperatureDisplayUnits);
+        this.log.debug('TemperatureDisplayUnits:', this.temperatureDisplayUnits);
         callback(null, this.temperatureDisplayUnits);
       })
       .on('set', (value, callback) => {
-        this.log('SET TemperatureDisplayUnits from', this.temperatureDisplayUnits, 'to', value);
+        this.log.debug('SET TemperatureDisplayUnits from', this.temperatureDisplayUnits, 'to', value);
         this.temperatureDisplayUnits = value;
         callback(null);
       });
@@ -264,11 +264,11 @@ class Thermostat {
         minStep: 0.1
       })
       .on('get', callback => {
-        this.log('CoolingThresholdTemperature:', this.coolingThresholdTemperature);
+        this.log.debug('CoolingThresholdTemperature:', this.coolingThresholdTemperature);
         callback(null, this.coolingThresholdTemperature);
       })
       .on('set', (value, callback) => {
-        this.log('SET CoolingThresholdTemperature from', this.coolingThresholdTemperature, 'to', value);
+        this.log.debug('SET CoolingThresholdTemperature from', this.coolingThresholdTemperature, 'to', value);
         this.coolingThresholdTemperature = value;
         callback(null);
       });
@@ -282,11 +282,11 @@ class Thermostat {
         minStep: 0.1
       })
       .on('get', callback => {
-        this.log('HeatingThresholdTemperature:', this.heatingThresholdTemperature);
+        this.log.debug('HeatingThresholdTemperature:', this.heatingThresholdTemperature);
         callback(null, this.heatingThresholdTemperature);
       })
       .on('set', (value, callback) => {
-        this.log('SET HeatingThresholdTemperature from', this.heatingThresholdTemperature, 'to', value);
+        this.log.debug('SET HeatingThresholdTemperature from', this.heatingThresholdTemperature, 'to', value);
         this.heatingThresholdTemperature = value;
         callback(null);
       });
