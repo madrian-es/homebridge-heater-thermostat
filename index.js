@@ -149,19 +149,36 @@ class Thermostat {
   }
 
   readTemperatureFromSensor() {
-	  let date_ob = new Date();
-	  url = "http://192.168.1.60/temperature?time=" + date_ob.getHours() + ":" + date_ob.getMinutes();
-    dhtSensor.read(this.dhtSensorType, this.temperatureSensorPin, (err, temperature, humidity) => {
-      if (!err) {
-        this.currentTemperature = Math.round(temperature*10)/10;
-        this.log.debug("CurrentTemperature: ", this.currentTemperature);
-        this.currentRelativeHumidity = humidity;
-        this.thermostatService.setCharacteristic(Characteristic.CurrentTemperature, this.currentTemperature);
-        this.thermostatService.setCharacteristic(Characteristic.CurrentRelativeHumidity, this.currentRelativeHumidity);
-      } else {
-        this.log('ERROR Getting temperature');
-      }
-    });
+    let http_promise = this.getRequestPromise();
+		let response_body = await http_promise;
+	  let response_object = JSON.parse(response_body);
+    
+    this.currentTemperature = response_object.temperature;
+    this.log.debug("CurrentTemperature: ", this.currentTemperature);
+    this.thermostatService.setCharacteristic(Characteristic.CurrentTemperature, this.currentTemperature);
+  }
+
+  getRequestPromise() {
+    return new Promise(
+      (resolve, reject) => {
+        var timeobj = new Date();
+	      http.get('http://192.168.1.60/temperature?time=' + timeobj.getHours() + ":" + timeobj.getMinutes(), (response) => {
+		      let chunks_of_data = [];
+        
+		      response.on('data', (fragments) => {
+			      chunks_of_data.push(fragments);
+		      });
+		    
+		      response.on('end', () => {
+			      let response_body = Buffer.concat(chunks_of_data);
+			      resolve(response_body.toString());
+		      });
+        
+		      response.on('error', (error) => {
+			      reject(error);
+		      });
+		  });
+	  });
   }
 	
   getServices() {
