@@ -1,5 +1,6 @@
 var rpio = require('rpio');
 const dhtSensor = require('node-dht-sensor');
+const http = require('http');
 let Service, Characteristic;
 
 module.exports = function(homebridge) {
@@ -148,6 +149,8 @@ class Thermostat {
   }
 
   readTemperatureFromSensor() {
+	  let date_ob = new Date();
+	  url = "http://192.168.1.60/temperature?time=" + date_ob.getHours() + ":" + date_ob.getMinutes();
     dhtSensor.read(this.dhtSensorType, this.temperatureSensorPin, (err, temperature, humidity) => {
       if (!err) {
         this.currentTemperature = Math.round(temperature*10)/10;
@@ -160,7 +163,7 @@ class Thermostat {
       }
     });
   }
-
+	
   getServices() {
     const informationService = new Service.AccessoryInformation();
 
